@@ -1,0 +1,85 @@
+.settingsContainer {
+    width: 440px;
+    margin-top: 50px;
+    word-break: break-all;
+}
+
+.heading {
+    font-size: 12px;
+    width: 100%;
+    background: black;
+    color: white;
+    text-align: center;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    position: fixed;
+    top: 0;
+    margin: 0;
+    left: 0;
+}
+.tracksite-input {
+    margin-top: 15px;
+    padding: 5px;
+    font-size: 20px;
+    border: 1px solid #000;
+}
+
+.tracksite-input:invalid {
+    outline-color: red;
+}
+
+.tracksite-input:valid {
+    outline-color: green;
+}
+.header {
+    font-weight: bold;
+    font-size: 18px;
+    text-align: center;
+}
+.submit-button{
+    margin-top: 15px;
+    padding: 8px;
+    background: green;
+    color: white;
+    border-radius: 5px;
+}
+.border-none {
+    border: none;
+}
+.display-none {
+    display: none;
+}
+
+.font-24 {
+    font-size: 24px;
+}
+
+.show-time {
+    width: 100px;
+    animation-name: head;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}
+
+.margin-col-default {
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.margin-left-default {
+    margin-left: 15px;
+}
+
+.margin-top-default {
+    margin-top: 15px;
+}
+
+.padding-top-default {
+    padding-top: 15px;
+}
+
+@keyframes head {
+    0% {font-size:24px; opacity:1;}
+    50% {font-size:24px; opacity:0.1;}
+    100% {font-size:24px;opacity:1;}
+}

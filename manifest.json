@@ -1,0 +1,28 @@
+{
+  "manifest_version": 2,
+  "name": "Control Your time wastage",
+  "description": "chrome extension that tracks time you waste online in order to increase your productivity.",
+  "version": "0.1",
+  "browser_action": {
+    "default_icon": "extension-deactivate.png",
+    "default_popup": "popup.html"
+  },
+  "icons": {
+    "16": "images/extension-active.png",
+    "32": "images/extension-active.png",
+    "48": "images/extension-active.png",
+    "128": "images/extension-active.png"
+  },
+  "background": {
+    "scripts": ["js/background.js"],
+    "persistant": false
+  },
+  "permissions": [
+    "activeTab",
+    "tabs",
+    "storage",
+    "webNavigation",
+    "history",
+    "<all_urls>"
+  ]
+}
