@@ -4,7 +4,7 @@
   "description": "chrome extension that tracks time you waste online in order to increase your productivity.",
   "version": "0.1",
   "browser_action": {
-    "default_icon": "extension-deactivate.png",
+    "default_icon": "images/extension-deactivate.png",
     "default_popup": "popup.html"
   },
   "icons": {
