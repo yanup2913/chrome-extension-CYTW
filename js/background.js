@@ -4,13 +4,15 @@ let activeTabUrl = "";
 let isUserActive = false;
 let totalTimeOnWebsites = {};
 let today = 0;
+let favIconUrl = "";
 
 (function(){
   getTrackedUrlFromStorage(null, filterUrlAndSetIconActive.bind(null, true));
   updateActiveTabUrl();
   isUserActive = true;
+  today = numDaysSinceUTC();
   addEvents();
-  updateData();
+  // updateData();
 
   //check if a new day
   setInterval(() => {
@@ -21,7 +23,6 @@ let today = 0;
 
   //save data in storage in every 1 min
   setInterval(saveDataInStorage, 1000);
-
 })();
 
 function filterUrlAndSetIconActive(skipMatch=false, result) {
@@ -33,8 +34,11 @@ function filterUrlAndSetIconActive(skipMatch=false, result) {
     // console.log(urlMatchesList);
   }
   const key= "timeData" + numDaysSinceUTC();
-  if(result && result[key] && (skipMatch || JSON.stringify(totalTimeOnWebsites) !== JSON.stringify(result[key]))) {
+  if(result && result[key] && Object.keys(result[key]).length && (skipMatch || JSON.stringify(totalTimeOnWebsites) !== JSON.stringify(result[key]))) {
     totalTimeOnWebsites = {...totalTimeOnWebsites, ...result[key]}
+  }
+  if(result && result["today"] && (skipMatch || JSON.stringify(today) !== JSON.stringify(result["today"]))) {
+    today = result["today"];
   }
 }
 
@@ -106,7 +110,9 @@ function updateActiveTabUrl() {
       activeTabUrl = null;
     } else {
       if(tabs[0]) {
+        // console.log(tabs[0]);
         activeTabUrl = tabs[0].url;
+        favIconUrl = tabs[0].favIconUrl;
         // console.log("&&&&&&&&&&&&&&&&&&&&", activeTabUrl);
         // console.log(totalTimeOnWebsites);
         if (isTrackedURL(filterURL(tabs[0].url))) {
@@ -127,7 +133,7 @@ function addEvents() {
     });
 
   chrome.storage.onChanged.addListener(function(){
-    getTrackedUrlFromStorage(DATA_KEY, filterUrlAndSetIconActive.bind(null, false));
+    getTrackedUrlFromStorage(null, filterUrlAndSetIconActive.bind(null, false));
   });
 
   chrome.tabs.onActivated.addListener(function(activeInfo) {
@@ -158,8 +164,10 @@ function updateTimeOnWebsite() {
   const isTrackedUrl = isTrackedURL(currentWebsiteUrl);
   // console.log("updateTimeOnWebsite", currentWebsiteUrl, isUserActive, !!isTrackedUrl);
   if(currentWebsiteUrl && isUserActive && !!isTrackedUrl) {
-    // console.log("hello");
-    totalTimeOnWebsites[isTrackedUrl] = ++totalTimeOnWebsites[isTrackedUrl] || 1;
+    totalTimeOnWebsites[isTrackedUrl] = {
+      "time": totalTimeOnWebsites[isTrackedUrl] && ++totalTimeOnWebsites[isTrackedUrl].time || 1,
+      "faviconUrl": favIconUrl,
+    };
   }
 }
 
@@ -187,7 +195,7 @@ function updateData() {
 }
 
 function saveDataInStorage() {
-  if(Object.keys(totalTimeOnWebsites)) {
+  if(Object.keys(totalTimeOnWebsites).length) {
     setDataInStorage({["timeData" + numDaysSinceUTC()]: totalTimeOnWebsites});
   }
 }

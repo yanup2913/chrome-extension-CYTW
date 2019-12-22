@@ -12,76 +12,84 @@
 <div>
     <div class="settingsContainer">
         <div class="header">SITES BEING TRACKED</div>
-        <form name="site-form">
-            <div class="input-group">
-                <input
-                    type="url"
-                    pattern="https://.+"
-                    class="tracksite-input"
-                    placeholder="https://www.example.com"
-                    id="1"
-                    required
-                >
-                <span class="show-time font-24 margin-col-default">0</span>
-                <img
-                    class="delete-icon"
-                    src="images/delete-icon.png"
-                    style="width:20px;height:20px;"
-                />
+        <div>
+            <span id="history" class="history">History</span>
+            <div id="history-data" class="display-none">
+                <div id="close-btn" class="close-button">close</div>
             </div>
-            <div class="input-group">
-                <input type="url" pattern="https://.+" class="tracksite-input"
-                   placeholder="https://www.example.com" id="2">
-                <span class="show-time font-24 margin-col-default">0</span>
-                <img
+        </div>
+        <div id="first-page">
+            <form name="site-form">
+                <div class="input-group">
+                    <input
+                        type="url"
+                        pattern="https://.+"
+                        class="tracksite-input"
+                        placeholder="https://www.example.com"
+                        id="1"
+                        required
+                    >
+                    <span class="show-time font-24 margin-col-default">0</span>
+                    <img
                         class="delete-icon"
                         src="images/delete-icon.png"
                         style="width:20px;height:20px;"
-                />
-            </div>
-            <div class="input-group">
-                <input type="url" pattern="https://.+" class="tracksite-input"
-                   placeholder="https://www.example.com" id="3">
-                <span class="show-time font-24 margin-col-default">0</span>
+                    />
+                </div>
+                <div class="input-group">
+                    <input type="url" pattern="https://.+" class="tracksite-input"
+                       placeholder="https://www.example.com" id="2">
+                    <span class="show-time font-24 margin-col-default">0</span>
                     <img
                             class="delete-icon"
                             src="images/delete-icon.png"
                             style="width:20px;height:20px;"
                     />
+                </div>
+                <div class="input-group">
+                    <input type="url" pattern="https://.+" class="tracksite-input"
+                       placeholder="https://www.example.com" id="3">
+                    <span class="show-time font-24 margin-col-default">0</span>
+                        <img
+                                class="delete-icon"
+                                src="images/delete-icon.png"
+                                style="width:20px;height:20px;"
+                        />
+                </div>
+                <div class="input-group">
+                    <input type="url" pattern="https://.+" class="tracksite-input"
+                       placeholder="https://www.example.com" id="4">
+                    <span class="show-time font-24 margin-col-default">0</span>
+                    <img
+                        class="delete-icon"
+                        src="images/delete-icon.png"
+                        style="width:20px;height:20px;"
+                    />
+                </div>
+                <div class="input-group">
+                    <input type="url" pattern="https://.+" class="tracksite-input"
+                       placeholder="https://www.example.com" id="5">
+                    <span class="show-time font-24 margin-col-default">0</span>
+                    <img
+                        class="delete-icon"
+                        src="images/delete-icon.png"
+                        style="width:20px;height:20px;"
+                    />
+                </div>
+                <input type="submit" value="Save" class="submit-button">
+            </form>
+            <div class="header margin-top-default">Most Visited Urls</div>
+            <div class="margin-top-default" style="font-size: 14px;">
+                Here are top 10 most visited urls by you in last 24 hours
+                you can copy and paste to add in input box to track url.
             </div>
-            <div class="input-group">
-                <input type="url" pattern="https://.+" class="tracksite-input"
-                   placeholder="https://www.example.com" id="4">
-                <span class="show-time font-24 margin-col-default">0</span>
-                <img
-                    class="delete-icon"
-                    src="images/delete-icon.png"
-                    style="width:20px;height:20px;"
-                />
+            <div
+                id="visited-url"
+                class="padding-top-default"
+                style="font-size:16px"
+            >
+                Loading...
             </div>
-            <div class="input-group">
-                <input type="url" pattern="https://.+" class="tracksite-input"
-                   placeholder="https://www.example.com" id="5">
-                <span class="show-time font-24 margin-col-default">0</span>
-                <img
-                    class="delete-icon"
-                    src="images/delete-icon.png"
-                    style="width:20px;height:20px;"
-                />
-            </div>
-            <input type="submit" value="Save" class="submit-button">
-        </form>
-        <div class="header margin-top-default">Most Visited Urls</div>
-        <div class="margin-top-default" style="font-size: 14px;">
-            Here are top 10 most visited urls by you in last 24 hours
-            you can copy and paste to add in input box to track url.
-        </div>
-        <div
-            id="visited-url"
-            class="padding-top-default"
-            style="font-size:16px"
-        >
-            Loading...
         </div>
         <div id="console"></div>
     </div>

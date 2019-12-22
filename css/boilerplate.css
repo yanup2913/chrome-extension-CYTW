@@ -2,6 +2,7 @@
     width: 440px;
     margin-top: 50px;
     word-break: break-all;
+    min-height: 300px;
 }
 
 .heading {
@@ -77,6 +78,78 @@
 .padding-top-default {
     padding-top: 15px;
 }
+
+.history {
+    font-size: 18px;
+    text-decoration: underline;
+    color: white;
+    cursor: pointer;
+    padding-right: 15px;
+    position: fixed;
+    padding-top: 3px;
+    top: 0;
+    right: 0;
+}
+
+.close-button {
+    font-size: 20px;
+    color: red;
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    right: 0;
+    padding-top: 5px;
+    padding-right: 15px;
+    text-decoration: underline;
+}
+
+.show-history {
+    display: block;
+    width: 0;
+    height: 100%;
+    position: fixed;
+    z-index: 1;
+    top: 30px;
+    left: 0;
+    animation-name: example;
+    animation-duration: 0.5s;
+    animation-delay: 0s;
+    animation-fill-mode: forwards;
+    padding-top: 40px;
+    padding-bottom: 50px;
+}
+
+.show-history-data {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    padding-left: 20px;
+    padding-top: 13px;
+    padding-bottom: 13px;
+}
+
+#history-data {
+    overflow: scroll;
+}
+
+.show-date {
+    border-bottom: 1px solid #0000002b;
+    border-top: 1px solid #0000002b;
+    font-size: 18px;
+    padding-left: 20px;
+    padding-top: 13px;
+    padding-bottom: 13px;
+}
+
+@keyframes example {
+    0%   {background-color: #B2FFFF; width: 0}
+    25%  {background-color:yellow; width: 25%}
+    50%  {background-color:blue;width: 50%}
+    75%  {background-color:green;width: 75%}
+    100% {background-color:white;width: 100%}
+}
+
+
 
 @keyframes head {
     0% {font-size:24px; opacity:1;}
