@@ -228,5 +228,6 @@ function isNewDay(){
  * 3. dynamically add input box
  * 4. add button to add most visited urls
  * 5. edit option to edit the tracked url
- * 6.
+ * 6. reset the current time of a particular url
+ * 7. previous history in history tab
  * **/
