@@ -37,7 +37,7 @@ function filterUrlAndSetIconActive(skipMatch=false, result) {
   if(result && result[key] && Object.keys(result[key]).length && (skipMatch || JSON.stringify(totalTimeOnWebsites) !== JSON.stringify(result[key]))) {
     totalTimeOnWebsites = {...totalTimeOnWebsites, ...result[key]}
   }
-  if(result && result["today"] && (skipMatch || JSON.stringify(today) !== JSON.stringify(result["today"]))) {
+  if(result && result["today"] && skipMatch) {
     today = result["today"];
   }
 }
@@ -187,6 +187,8 @@ function getCurrentWebsite() {
 }
 
 function updateData() {
+  today = numDaysSinceUTC();
+  totalTimeOnWebsites = {};
   let newData = {
     ["timeData" + numDaysSinceUTC()]: {},
     "today": numDaysSinceUTC(),
