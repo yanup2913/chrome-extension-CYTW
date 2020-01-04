@@ -6,89 +6,113 @@
     <script type="text/javascript" src="js/popup.js"></script>
 </head>
 <body>
-<h1 class="heading">
+<h1 class="heading z-index-1">
     Control Your time wastage
 </h1>
 <div>
     <div class="settingsContainer">
-        <div class="header">SITES BEING TRACKED</div>
+        <div class="top-banner-section">
+            <div class="top-text">Simple time tracking. Powerful reporting.</div>
+<!--            <img src="./images/time.png" alt="Save your time" class="banner"/>-->
+        </div>
+<!--        <div class="header">Sites Being Tracked</div>-->
         <div>
-            <span id="history" class="history">History</span>
+<!--            <span id="history" class="history z-index-1">-->
+                <svg
+                    id="history"
+                    class="history z-index-1"
+                    focusable="false"
+                    fill="#ffffff"
+                    viewBox="0 0 24 24"
+                >
+                    <path
+                        d="M6,8c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM12,20c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM6,20c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM6,14c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM12,14c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM16,6c0,1.1 0.9,2 2,2s2,-0.9 2,-2 -0.9,-2 -2,-2 -2,0.9 -2,2zM12,8c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM18,14c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM18,20c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2z"></path>
+                </svg>
+<!--            </span>-->
+<!--            <img-->
+<!--                src="https://ssl.gstatic.com/trends_nrtr/2051_RC11/ic_menu_24px.svg"-->
+<!--                id="history"-->
+<!--                class="history z-index-1"-->
+<!--            />-->
             <div id="history-data" class="display-none">
-                <div id="close-btn" class="close-button">close</div>
+                <div id="close-btn" class="close-button display-none">X</div>
             </div>
         </div>
         <div id="first-page">
             <form name="site-form">
-                <div class="input-group">
-                    <input
-                        type="url"
-                        pattern="https://.+"
-                        class="tracksite-input"
-                        placeholder="https://www.example.com"
-                        id="1"
-                        required
-                    >
-                    <span class="show-time font-24 margin-col-default">0</span>
-                    <img
-                        class="delete-icon"
-                        src="images/delete-icon.png"
-                        style="width:20px;height:20px;"
-                    />
-                </div>
-                <div class="input-group">
-                    <input type="url" pattern="https://.+" class="tracksite-input"
-                       placeholder="https://www.example.com" id="2">
-                    <span class="show-time font-24 margin-col-default">0</span>
-                    <img
-                            class="delete-icon"
-                            src="images/delete-icon.png"
-                            style="width:20px;height:20px;"
-                    />
-                </div>
-                <div class="input-group">
-                    <input type="url" pattern="https://.+" class="tracksite-input"
-                       placeholder="https://www.example.com" id="3">
-                    <span class="show-time font-24 margin-col-default">0</span>
-                        <img
-                                class="delete-icon"
-                                src="images/delete-icon.png"
-                                style="width:20px;height:20px;"
-                        />
-                </div>
-                <div class="input-group">
-                    <input type="url" pattern="https://.+" class="tracksite-input"
-                       placeholder="https://www.example.com" id="4">
-                    <span class="show-time font-24 margin-col-default">0</span>
-                    <img
-                        class="delete-icon"
-                        src="images/delete-icon.png"
-                        style="width:20px;height:20px;"
-                    />
-                </div>
-                <div class="input-group">
-                    <input type="url" pattern="https://.+" class="tracksite-input"
-                       placeholder="https://www.example.com" id="5">
-                    <span class="show-time font-24 margin-col-default">0</span>
-                    <img
-                        class="delete-icon"
-                        src="images/delete-icon.png"
-                        style="width:20px;height:20px;"
-                    />
-                </div>
-                <input type="submit" value="Save" class="submit-button">
+<!--                <div class="input-group">-->
+<!--                    <input-->
+<!--                        type="url"-->
+<!--                        pattern="https://.+"-->
+<!--                        class="tracksite-input"-->
+<!--                        placeholder="https://www.example.com"-->
+<!--                        id="1"-->
+<!--                        required-->
+<!--                    >-->
+<!--                    <span class="show-time font-20 monospace font-bold margin-col-default">00:00:00</span>-->
+<!--                    <img-->
+<!--                        class="delete-icon"-->
+<!--                        src="images/delete-icon.png"-->
+<!--                        style="width:20px;height:20px;"-->
+<!--                    />-->
+<!--                </div>-->
+<!--                <div class="input-group">-->
+<!--                    <input type="url" pattern="https://.+" class="tracksite-input"-->
+<!--                       placeholder="https://www.example.com" id="2">-->
+<!--                    <span class="show-time font-20 monospace font-bold margin-col-default">00:00:00</span>-->
+<!--                    <img-->
+<!--                        class="delete-icon"-->
+<!--                        src="images/delete-icon.png"-->
+<!--                        style="width:20px;height:20px;"-->
+<!--                    />-->
+<!--                </div>-->
+<!--                <div class="input-group">-->
+<!--                    <input type="url" pattern="https://.+" class="tracksite-input"-->
+<!--                       placeholder="https://www.example.com" id="3">-->
+<!--                    <span class="show-time font-20 monospace font-bold margin-col-default">00:00:00</span>-->
+<!--                    <img-->
+<!--                        class="delete-icon"-->
+<!--                        src="images/delete-icon.png"-->
+<!--                        style="width:20px;height:20px;"-->
+<!--                    />-->
+<!--                </div>-->
+<!--                <div class="input-group">-->
+<!--                    <input type="url" pattern="https://.+" class="tracksite-input"-->
+<!--                       placeholder="https://www.example.com" id="4">-->
+<!--                    <span class="show-time font-20 monospace font-bold margin-col-default">00:00:00</span>-->
+<!--                    <img-->
+<!--                        class="delete-icon"-->
+<!--                        src="images/delete-icon.png"-->
+<!--                        style="width:20px;height:20px;"-->
+<!--                    />-->
+<!--                </div>-->
+<!--                <div class="input-group">-->
+<!--                    <input type="url" pattern="https://.+" class="tracksite-input"-->
+<!--                       placeholder="https://www.example.com" id="5">-->
+<!--                    <span class="show-time font-20 monospace font-bold margin-col-default">00:00:00</span>-->
+<!--                    <img-->
+<!--                        class="delete-icon"-->
+<!--                        src="images/delete-icon.png"-->
+<!--                        style="width:20px;height:20px;"-->
+<!--                    />-->
+<!--                </div>-->
             </form>
-            <div class="header margin-top-default">Most Visited Urls</div>
-            <div class="margin-top-default" style="font-size: 14px;">
-                Here are top 10 most visited urls by you in last 24 hours
-                you can copy and paste to add in input box to track url.
+            <div class="margin-top-default padding-top-default">
+                <span id="add-new-button" class="submit-button">Add New URL</span>
+                <span id="submit" class="submit-button margin-left-default">Save</span>
             </div>
-            <div
-                id="visited-url"
-                class="padding-top-default"
-                style="font-size:16px"
-            >
-                Loading...
+            <div class="next-section">
+                <div class="header margin-top-default">Most Visited Urls</div>
+                <div class="margin-top-small subheading-color break-word" style="font-size: 12px;">
+                    Here are top 10 most visited urls by you in last 24 hours
+                    you can copy and paste to add in input box to track url.
+                </div>
+                <div
+                    id="visited-url"
+                    class="padding-top-default"
+                    style="font-size:16px"
+                >
+                </div>
             </div>
         </div>
         <div id="console"></div>

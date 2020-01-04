@@ -4,9 +4,9 @@ const NUM_MILI_IN_A_DAY = 86400000;
 let websiteUrls = []; //array of objects
 
 //temp
-console.log("popup.js");
+// console.log("popup.js");
 (function(){
-  console.log("iife");
+  // console.log("iife");
   document.addEventListener('DOMContentLoaded', function () {
     bindFormSubmissionListener();
     bindHistoryListener();
@@ -14,46 +14,83 @@ console.log("popup.js");
     autoFillFormIfDataExists(true);
     addListenerOnDeleteIcon();
     fetchHistory();
+    bindAddNewItemEvent();
   });
 })();
 
+function bindAddNewItemEvent() {
+  let addNewButton = document.getElementById("add-new-button");
+  addNewButton.addEventListener("click", () => {
+    addNewFormEl();
+  });
+}
+
 function bindHistoryListener() {
-  let historyEl = document.getElementById("history-data");
-  let historyButton = document.getElementById("history");
-  let mainPage = document.getElementById("first-page");
+  const historyEl = document.getElementById("history-data");
+  const historyButton = document.getElementById("history");
+  const mainPage = document.getElementById("first-page");
+  const closeBtn = document.getElementById("close-btn");
   historyButton.addEventListener("click", () => {
     if(!historyEl.classList.value.includes("show-history")) {
       getTrackedUrlFromStorage(null, setHistory);
       historyEl.classList.add("show-history");
+      historyEl.classList.remove("close-history");
       historyEl.classList.remove("display-none");
       mainPage.classList.add("display-none");
+      closeBtn.classList.remove("display-none");
     }
   });
 }
 
 function addListenerOnDeleteIcon() {
-  $(".delete-icon").click((ev) => {
-    const previousEl = ev.target.previousElementSibling.previousElementSibling;
-    const value = previousEl.value;
-    const index = websiteUrls.indexOf(value);
-    if(~index) {
-      previousEl.disabled = false;
-      previousEl.classList.remove("border-none");
-      websiteUrls.splice(index, 1);
-      setTrackedUrlInStorage(websiteUrls);
-      previousEl.value = "";
+  $("form[name=site-form]").click((ev) => {
+    if(ev.target.classList.value === "delete-icon") {
+      const previousEl = ev.target.previousElementSibling.previousElementSibling;
+      // console.log(previousEl);
+      const value = previousEl.value;
+      const index = websiteUrls.indexOf(value);
+      if(~index) {
+        previousEl.disabled = false;
+        previousEl.classList.remove("border-none");
+        websiteUrls.splice(index, 1);
+        setTrackedUrlInStorage(websiteUrls);
+        previousEl.value = "";
+      }
     }
   })
 }
 
+function addNewFormEl() {
+  let form = document.forms["site-form"];
+  const inputGroup = createElement(form, "div");
+  inputGroup.classList.add("input-group");
+  const inputEl = createElement(inputGroup, "input");
+  inputEl.type = "url";
+  inputEl.pattern = "https://.+";
+  inputEl.classList.add("tracksite-input");
+  inputEl.placeholder = "https://www.example.com";
+  inputEl.required = true;
+  const spanEl = createElement(inputGroup, "span");
+  spanEl.setAttribute("class", "show-time font-20 monospace font-bold margin-col-default");
+  spanEl.innerText = "00:00:00";
+  const imgEl = createElement(inputGroup, "img");
+  imgEl.src = "images/delete-icon.png";
+  imgEl.classList.add("delete-icon");
+  imgEl.style.width = "20px";
+  imgEl.style.height = "20px";
+  // addListenerOnDeleteIcon();
+  return {inputGroup, inputEl, spanEl, imgEl};
+}
+
 function bindFormSubmissionListener() {
-  var consoleDiv = document.getElementById("console");
-  document.forms["site-form"].addEventListener("submit", (ev) => {
+  // var consoleDiv = document.getElementById("console");
+  const submitbutton = document.getElementById("submit");
+  submitbutton.addEventListener("click", (ev) => {
     ev.preventDefault();
-    console.log("hello");
+    // console.log("hello");
     let form = document.forms["site-form"];
     // button values is also included. so that remove last element from form list.
-    form = [...form].slice(0, form.length - 1);
+    form = [...form];/*.slice(0, form.length - 1);*/
     for (let inputEl of form) {
       if(!inputEl.disabled && inputEl.value) {
         websiteUrls.push(inputEl.value);
@@ -66,7 +103,7 @@ function bindFormSubmissionListener() {
       } else {
         inputEl.parentElement.classList.add("display-none");
       }
-      consoleDiv.innerText += inputEl.disabled;
+      // consoleDiv.innerText += inputEl.disabled;
     }
     setTrackedUrlInStorage(websiteUrls);
   });
@@ -82,22 +119,38 @@ function autoFillFormIfDataExists(skipMatch=false) {
       }
       // consoleDiv.innerText += JSON.stringify(websiteUrls);
       let form = document.forms["site-form"];
-      form = [...form].slice(0, form.length - 1);
-      form.forEach((inputEl, index) => {
-        const url = websiteUrls[index];
-        if (url) {
+      form = [...form];/*.slice(0, form.length - 1);*/
+      // console.log(form);
+      // form.forEach((inputEl, index) => {
+      //   const url = websiteUrls[index];
+      //   if (url) {
+      //     if(shouldUpdateFrom) {
+      //       inputEl.classList.add("border-none");
+      //       inputEl.disabled = true;
+      //       inputEl.value = url;
+      //     }
+      //     const time = result["timeData" + numDaysSinceUTC()][url] && result["timeData" + numDaysSinceUTC()][url].time;
+      //     inputEl.nextElementSibling.innerText = sec2time(time);
+      //   } else if(!inputEl.value) {
+      //     inputEl.nextElementSibling.classList.add("display-none");
+      //     inputEl.nextElementSibling.nextElementSibling.classList.add('display-none');
+      //   }
+      // });
+      // console.log(websiteUrls);
+      if(websiteUrls.length > 0) {
+
+        for(let i= form.length;i < websiteUrls.length;i++) {
+          const url = websiteUrls[i];
           if(shouldUpdateFrom) {
-            inputEl.classList.add("border-none");
-            inputEl.disabled = true;
-            inputEl.value = url;
+            const elObj = addNewFormEl();
+            elObj.inputEl.classList.add("border-none");
+            elObj.inputEl.disabled = true;
+            elObj.inputEl.value = url;
+            const time = result["timeData" + numDaysSinceUTC()][url] && result["timeData" + numDaysSinceUTC()][url].time;
+            elObj.spanEl.innerText = sec2time(time);
           }
-          const time = result["timeData" + numDaysSinceUTC()][url] && result["timeData" + numDaysSinceUTC()][url].time
-          inputEl.nextElementSibling.innerText = sec2time(time);
-        } else {
-          inputEl.nextElementSibling.classList.add("display-none");
-          inputEl.nextElementSibling.nextElementSibling.classList.add('display-none');
         }
-      });
+      }
     }
     // consoleDiv.innerText += JSON.stringify(result);
   };
@@ -106,51 +159,53 @@ function autoFillFormIfDataExists(skipMatch=false) {
 }
 
 function setHistory(results) {
-  console.log(results);
+  // console.log(results);
   if(results) {
     let historyTabEl = document.getElementById("history-data");
-    Object.keys(results).forEach((key) => {
+    const sortedData = Object.keys(results).sort((a, b) => {if(a < b){return 1} return -1});
+    sortedData.forEach((key) => {
       if (key.includes("timeData")) {
-        let dateEl = createDiv(historyTabEl, "div");
+        let dateEl = createElement(historyTabEl, "div");
         dateEl.classList.add("show-date");
         dateEl.innerText = getDateFromStr(key);
         const subResults = results[key];
         if (Object.keys(subResults).length) {
-          Object.keys(subResults).forEach((subKey) => {
-            let history = createDiv(historyTabEl, "div");
-            let timeEl = createDiv(history, "span");
+          Object.keys(subResults).forEach(subKey => {
+            let history = createElement(historyTabEl, "div");
+            let timeEl = createElement(history, "span");
             timeEl.innerText = sec2time(subResults[subKey].time);
             timeEl.style.marginRight = "15px";
-            let img = createDiv(history, "img");
+            let img = createElement(history, "img");
             img.src = subResults[subKey].faviconUrl;
             img.style.height = "16px";
             img.style.width = "16px";
             img.style.marginRight = "7px";
-            let subtext = createDiv(history, "span");
+            let subtext = createElement(history, "span");
             history.classList.add("show-history-data");
             subtext.innerText = subKey;
           });
         } else {
-          let history = createDiv(historyTabEl, "div");
+          let history = createElement(historyTabEl, "div");
           history.classList.add("show-history-data");
           history.innerText = "No Result Found";
         }
       }
     });
-    let spaceEl = createDiv(historyTabEl, "div");
+    let spaceEl = createElement(historyTabEl, "div");
     spaceEl.style.height = "100px";
   }
 }
 
 function bindCloseEvent() {
-  let closeBtn = document.getElementById("close-btn");
-  let historyEl = document.getElementById("history-data");
-  let mainPage = document.getElementById("first-page");
+  const closeBtn = document.getElementById("close-btn");
+  const historyEl = document.getElementById("history-data");
+  const mainPage = document.getElementById("first-page");
   closeBtn.addEventListener("click", () => {
     if(historyEl.classList.value.includes("show-history")) {
       $("#history-data").children().not(':first-child').remove();
       historyEl.classList.remove("show-history");
-      historyEl.classList.add("display-none");
+      historyEl.classList.add("close-history");
+      closeBtn.classList.add("display-none");
       mainPage.classList.remove("display-none");
     }
   });
@@ -162,7 +217,7 @@ function getDateFromStr(str) {
   return new Date(timeStamp).toDateString()
 }
 
-function createDiv(parentNode, elType) {
+function createElement(parentNode, elType) {
   let el = document.createElement(elType);
   parentNode.appendChild(el);
   return el;
@@ -214,14 +269,24 @@ function fetchHistory() {
 
     let sortedData = data.sort(compareFn).slice(0, 10);
     if(sortedData.length) {
-      visitedEl.innerText = sortedData.map(function (page, index) {
-        // console.log(page);
-        return (index + 1) + ". " + page.url + "\n\n\n";
-      }).join("");
+      sortedData.forEach((page) => {
+        return visitedItems(visitedEl, page.url);
+      });
     } else {
       visitedEl.innerText = "No history found yet."
     }
   });
+}
+
+function visitedItems(parentEl, text) {
+  const parentDiv = createElement(parentEl, "div");
+  parentDiv.classList.add("mvu-parent");
+  const img = createElement(parentDiv, "img");
+  img.classList.add("mvu-icon");
+  img.src = "./images/default-favicon.png";
+  const textEl = createElement(parentDiv, "span");
+  textEl.classList.add("margin-left-small");
+  textEl.innerText = text;
 }
 
 // var background = chrome.extension.getBackgroundPage();
