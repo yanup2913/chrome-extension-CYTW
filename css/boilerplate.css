@@ -2,13 +2,13 @@
     width: 440px;
     margin-top: 50px;
     word-break: break-all;
-    min-height: 300px;
+    min-height: 540px;
 }
 
 .heading {
     font-size: 12px;
     width: 100%;
-    background: black;
+    background: #1a73e8;
     color: white;
     text-align: center;
     padding-top: 8px;
@@ -33,26 +33,47 @@
     outline-color: green;
 }
 .header {
-    font-weight: bold;
-    font-size: 18px;
-    text-align: center;
+    font-weight: 400;
+    font-size: 16px;
+    text-align: left;
 }
 .submit-button{
     margin-top: 15px;
     padding: 8px;
-    background: green;
+    background: #1a73e8;
+    user-select: none;
     color: white;
-    border-radius: 5px;
+    border: none;
+    box-shadow: 0 1px 3px 1px rgba(26,115,232, 0.5);
+    border-radius: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    cursor: pointer;
+    font-size: 16px;
 }
+
+.z-index-1 {
+    z-index: 1;
+}
+
+.break-word {
+    word-break: break-word;
+}
+
 .border-none {
     border: none;
 }
+
 .display-none {
     display: none;
 }
 
 .font-24 {
     font-size: 24px;
+}
+
+.font-20 {
+    font-size: 20px;
 }
 
 .show-time {
@@ -75,6 +96,33 @@
     margin-top: 15px;
 }
 
+.subheading-color {
+    color: rgba(0,0,0,0.54);
+}
+
+.mvu-icon {
+    width: 16px;
+    height: 16px;
+    margin-left: 15px;
+}
+
+.mvu-parent {
+    display: flex;
+    align-items: center;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(0,0,0,0.16);
+    font-family: sans-serif;
+}
+
+.margin-left-small {
+    margin-left: 8px;
+}
+
+.margin-top-small {
+    margin-top: 8px;
+}
+
 .padding-top-default {
     padding-top: 15px;
 }
@@ -89,18 +137,67 @@
     padding-top: 3px;
     top: 0;
     right: 0;
+    width: 23px;
+    height: 23px;
 }
 
 .close-button {
     font-size: 20px;
     color: red;
-    position: absolute;
+    position: fixed;
     cursor: pointer;
-    top: 0;
-    right: 0;
-    padding-top: 5px;
-    padding-right: 15px;
-    text-decoration: underline;
+    top: 3px;
+    border-radius: 21px;
+    right: 14px;
+    background: white;
+    padding: 0 10px 0 10px;
+    box-shadow: 0 0 10px -2px;
+}
+
+.banner {
+    height: 183px;
+    width: 283px;
+}
+
+.top-banner-section {
+    display: flex;
+    align-items: center;
+    word-break: break-word;
+    padding-left: 15px;
+    padding-bottom: 15px;
+}
+
+.top-text {
+    text-shadow: 0 0 0 #1a73e8, 1px 1px 0 rgb(129,148,205), 2px 2px 0 rgb(120,139,196), 3px 3px 0 rgb(111,130,187), 4px 4px 0 #1a73e8, 5px 5px 0 #1a73e8, 6px 6px 0 #1a73e8, 7px 7px 0 #1a73e8, 8px 8px 0 #1a73e8, 7px 7px 0 #1a73e8;
+    font-size: 22px;
+    font-style: italic;
+    font-weight: bold;
+    color: #ffffffe0;
+    line-height: 34px;
+}
+
+.box-shadow-normal {
+    box-shadow: 0px 0px 8px 0px #0006;
+}
+
+.next-section {
+    border-top: 2px solid #f1f3f4;
+    margin-top: 24px;
+}
+
+.close-history {
+    display: block;
+    width: 0;
+    height: 100%;
+    position: fixed;
+    z-index: 1;
+    top: 30px;
+    left: 0;
+    animation-name: close-modal;
+    animation-duration: 0.5s;
+    animation-delay: 0s;
+    padding-top: 40px;
+    padding-bottom: 50px;
 }
 
 .show-history {
@@ -111,7 +208,7 @@
     z-index: 1;
     top: 30px;
     left: 0;
-    animation-name: example;
+    animation-name: open-modal;
     animation-duration: 0.5s;
     animation-delay: 0s;
     animation-fill-mode: forwards;
@@ -141,18 +238,34 @@
     padding-bottom: 13px;
 }
 
-@keyframes example {
-    0%   {background-color: #B2FFFF; width: 0}
-    25%  {background-color:yellow; width: 25%}
-    50%  {background-color:blue;width: 50%}
-    75%  {background-color:green;width: 75%}
+.monospace {
+    font-family: monospace;
+}
+
+.font-bold {
+    font-weight: bold;
+}
+
+@keyframes open-modal {
+    0%   {background-color: grey; width: 0}
+    /*25%  {background-color:grey; width: 25%}*/
+    /*50%  {background-color:grey;width: 50%}*/
+    /*75%  {background-color:grey;width: 75%}*/
     100% {background-color:white;width: 100%}
+}
+
+@keyframes close-modal {
+    0%   {background-color: white; width: 100%}
+    /*25%  {background-color:grey; width: 25%}*/
+    /*50%  {background-color:grey;width: 50%}*/
+    /*75%  {background-color:grey;width: 75%}*/
+    100% {background-color:grey;width: 0;display: none;}
 }
 
 
 
 @keyframes head {
-    0% {font-size:24px; opacity:1;}
-    50% {font-size:24px; opacity:0.1;}
-    100% {font-size:24px;opacity:1;}
+    0% {font-size:20px; opacity:1;}
+    50% {font-size:20px; opacity:0.1;}
+    100% {font-size:20px;opacity:1;}
 }
