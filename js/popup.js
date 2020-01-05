@@ -3,10 +3,7 @@ const NUM_MILI_IN_A_DAY = 86400000;
 
 let websiteUrls = []; //array of objects
 
-//temp
-// console.log("popup.js");
 (function(){
-  // console.log("iife");
   document.addEventListener('DOMContentLoaded', function () {
     bindFormSubmissionListener();
     bindHistoryListener();
@@ -45,16 +42,13 @@ function bindHistoryListener() {
 function addListenerOnDeleteIcon() {
   $("form[name=site-form]").click((ev) => {
     if(ev.target.classList.value === "delete-icon") {
-      const previousEl = ev.target.previousElementSibling.previousElementSibling;
-      // console.log(previousEl);
-      const value = previousEl.value;
+      const parentEl = ev.target.parentNode.parentNode;
+      parentEl.removeChild(ev.target.parentNode);
+      const value = ev.target.previousElementSibling.previousElementSibling.value;
       const index = websiteUrls.indexOf(value);
       if(~index) {
-        previousEl.disabled = false;
-        previousEl.classList.remove("border-none");
         websiteUrls.splice(index, 1);
         setTrackedUrlInStorage(websiteUrls);
-        previousEl.value = "";
       }
     }
   })
@@ -78,19 +72,16 @@ function addNewFormEl() {
   imgEl.classList.add("delete-icon");
   imgEl.style.width = "20px";
   imgEl.style.height = "20px";
-  // addListenerOnDeleteIcon();
   return {inputGroup, inputEl, spanEl, imgEl};
 }
 
 function bindFormSubmissionListener() {
-  // var consoleDiv = document.getElementById("console");
   const submitbutton = document.getElementById("submit");
   submitbutton.addEventListener("click", (ev) => {
     ev.preventDefault();
-    // console.log("hello");
     let form = document.forms["site-form"];
     // button values is also included. so that remove last element from form list.
-    form = [...form];/*.slice(0, form.length - 1);*/
+    form = [...form];
     for (let inputEl of form) {
       if(!inputEl.disabled && inputEl.value) {
         websiteUrls.push(inputEl.value);
@@ -103,40 +94,35 @@ function bindFormSubmissionListener() {
       } else {
         inputEl.parentElement.classList.add("display-none");
       }
-      // consoleDiv.innerText += inputEl.disabled;
     }
     setTrackedUrlInStorage(websiteUrls);
   });
 }
 
 function autoFillFormIfDataExists(skipMatch=false) {
-  // var consoleDiv = document.getElementById("console");
   const callback = (result) => {
     const shouldUpdateFrom = skipMatch || JSON.stringify(websiteUrls) !== JSON.stringify(result[DATA_KEY]);
     if(result && result[DATA_KEY]) {
       if(shouldUpdateFrom) {
         websiteUrls = [...websiteUrls, ...result[DATA_KEY]].filter(url => url);
       }
-      // consoleDiv.innerText += JSON.stringify(websiteUrls);
       let form = document.forms["site-form"];
-      form = [...form];/*.slice(0, form.length - 1);*/
-      // console.log(form);
-      // form.forEach((inputEl, index) => {
-      //   const url = websiteUrls[index];
-      //   if (url) {
-      //     if(shouldUpdateFrom) {
-      //       inputEl.classList.add("border-none");
-      //       inputEl.disabled = true;
-      //       inputEl.value = url;
-      //     }
-      //     const time = result["timeData" + numDaysSinceUTC()][url] && result["timeData" + numDaysSinceUTC()][url].time;
-      //     inputEl.nextElementSibling.innerText = sec2time(time);
-      //   } else if(!inputEl.value) {
-      //     inputEl.nextElementSibling.classList.add("display-none");
-      //     inputEl.nextElementSibling.nextElementSibling.classList.add('display-none');
-      //   }
-      // });
-      // console.log(websiteUrls);
+      form = [...form];
+      form.forEach((inputEl, index) => {
+        const url = websiteUrls[index];
+        if (url) {
+          if(shouldUpdateFrom) {
+            inputEl.classList.add("border-none");
+            inputEl.disabled = true;
+            inputEl.value = url;
+          }
+          const time = result["timeData" + numDaysSinceUTC()][url] && result["timeData" + numDaysSinceUTC()][url].time;
+          inputEl.nextElementSibling.innerText = sec2time(time);
+        } else if(!inputEl.value) {
+          inputEl.nextElementSibling.classList.add("display-none");
+          inputEl.nextElementSibling.nextElementSibling.classList.add('display-none');
+        }
+      });
       if(websiteUrls.length > 0) {
 
         for(let i= form.length;i < websiteUrls.length;i++) {
@@ -152,14 +138,12 @@ function autoFillFormIfDataExists(skipMatch=false) {
         }
       }
     }
-    // consoleDiv.innerText += JSON.stringify(result);
   };
 
   getTrackedUrlFromStorage(null, callback);
 }
 
 function setHistory(results) {
-  // console.log(results);
   if(results) {
     let historyTabEl = document.getElementById("history-data");
     const sortedData = Object.keys(results).sort((a, b) => {if(a < b){return 1} return -1});
@@ -175,6 +159,7 @@ function setHistory(results) {
             let timeEl = createElement(history, "span");
             timeEl.innerText = sec2time(subResults[subKey].time);
             timeEl.style.marginRight = "15px";
+            timeEl.style.flexShrink = "0";
             let img = createElement(history, "img");
             img.src = subResults[subKey].faviconUrl;
             img.style.height = "16px";
@@ -225,7 +210,6 @@ function createElement(parentNode, elType) {
 
 function setTrackedUrlInStorage(websiteUrls) {
   chrome.storage.local.set({[DATA_KEY]: websiteUrls}, function () {
-    // console.log(websiteUrls);
   });
 }
 
@@ -252,9 +236,7 @@ function numDaysSinceUTC(){
 
 
 chrome.storage.onChanged.addListener(function(){
-  // var consoleDiv = document.getElementById("console");
   autoFillFormIfDataExists();
-  // consoleDiv.innerText += "-";
 });
 
 function fetchHistory() {
