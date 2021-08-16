@@ -1,4 +1,4 @@
-chrome extension that tracks time you waste online in order to increase your productivity.
+chrome extension that tracks time you spent online in order to increase your productivity.
 If you're a developer and can help improve this project. Any Contribution is appreciated.
 
 ## Installation
